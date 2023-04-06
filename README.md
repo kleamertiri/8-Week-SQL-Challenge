@@ -27,7 +27,12 @@ Danny wants to use the data to answer a few simple questions about his customers
   9.  If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
   10.  In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer
         A and B have at the end of January?
+  #### Bonus Questions
+  1. Join the tables and create a new column to find out if a customer is a member, and during what time the customer became a member.
+  2. Danny also requires further information about the ranking of customer products, but he purposely does not need the ranking for non-member purchases so he expects      null ranking values for the records when customers are not yet part of the loyalty program
+  
 </details>
+
 
 
 
