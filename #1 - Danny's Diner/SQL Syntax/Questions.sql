@@ -124,14 +124,14 @@ WITH CTE_dates AS (
 
 SELECT d.customer_id,
 		SUM(CASE WHEN product_name = 'sushi' THEN 20 * m.price
-			     WHEN s.order_date between d.join_date AND d.valid_date THEN 20 * m.price
-			     ELSE 10 * m.price END) AS total_points
+		         WHEN s.order_date between d.join_date AND d.valid_date THEN 20 * m.price
+		         ELSE 10 * m.price END) AS total_points
 FROM CTE_dates as d
 JOIN sales AS s 
 ON  d.customer_id = s.customer_id
 JOIN menu AS m 
 ON s.product_id = m.product_id
 WHERE s.order_date <= d.last_date
-GROUP BY d.customer_id
+GROUP BY d.customer_id;
 
  
