@@ -134,4 +134,39 @@ ON s.product_id = m.product_id
 WHERE s.order_date <= d.last_date
 GROUP BY d.customer_id;
 
+
+---------------------
+---BONUS QUESTIONS---
+---------------------
+
+--1.Join the tables and create a new column to find out if a customer is a member,
+--and during what time the customer became a member
+
+SELECT s.customer_id, s.order_date, m.product_name, m.price,
+CASE WHEN s.order_date >= memb.join_date AND s.customer_id = memb.customer_id THEN 'Y'
+ELSE 'N' END AS member
+FROM sales AS s
+INNER JOIN menu AS m	
+ON s.product_id = m.product_id
+LEFT JOIN members AS memb
+ON s.customer_id = memb.customer_id;
+
+--2.Danny also requires further information about the ranking of customer products, 
+--but he purposely does not need the ranking for non-member purchases so he expects null ranking values for the records 
+--when customers are not yet part of the loyalty program
+WITH CTE_membRank AS (
+	SELECT s.customer_id, s.order_date, m.product_name, m.price,
+	CASE WHEN s.order_date >= memb.join_date AND s.customer_id = memb.customer_id THEN 'Y'
+	ELSE 'N' END AS member
+	FROM sales AS s
+	INNER JOIN menu AS m	
+	ON s.product_id = m.product_id
+	LEFT JOIN members AS memb
+	ON s.customer_id = memb.customer_id
+)
+SELECT * ,
+CASE WHEN member = 'Y' THEN DENSE_RANK() OVER(PARTITION BY customer_id, member ORDER BY order_date)
+     ELSE null
+END AS ranking
+FROM CTE_membRank;
  
