@@ -3,6 +3,7 @@ In this repository I will display the solutions for 8 use cases in [8 Week SQL C
 
 ## :arrow_forward: List of Challenges
 - [Case Study #1 - Danny's Diner](#case-study-1---dannys-diner)
+- [Case Study #2 - Pizza Runner](#case-study-2---pizza-runner)
 ## Case Study #1 - Danny's Diner
 ![Capture](https://user-images.githubusercontent.com/105167291/230071791-2aef7e3b-095e-4a11-a628-ad1188a868ad.PNG)
 ### Problem Statement
