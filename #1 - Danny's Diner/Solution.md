@@ -1,4 +1,4 @@
-# :sushi: Danny's Diner
+# :sushi: #1 Danny's Diner
 
 ## Solution
 
