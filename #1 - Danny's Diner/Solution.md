@@ -11,11 +11,11 @@ ON S.product_id = M.product_id
 GROUP BY S.customer_id
 ORDER BY S.customer_id;
 ```
-### Steps:
+#### Steps:
  - Using `INNER JOIN` to merge *sales* and *menu* table, as `customer_id` and `price` are from both tables
  - Using `SUM()` and `GROUP BY` to find the `total_price` for each customer
 
-### Answer
+#### Answer
 | customer_id | total_price |
 | ----------- | ----------- |
 |      A      |      76     |
@@ -33,11 +33,11 @@ FROM sales
 GROUP BY customer_id
 ORDER BY customer_id;
 ```
-### Steps:
+#### Steps:
  - All the information needed is in the table `sales`
  - We use `COUNT()` and `DISTINCT` (a customer may have visited in the same day more than once) to find the number of days the customer visited
 
-### Answer
+#### Answer
 | customer_id |  nr_visits  |
 | ----------- | ----------- |
 |      A      |       4     |
@@ -64,12 +64,12 @@ FROM CTE_ranked_sales
 WHERE ranked_products = 1
 GROUP BY customer_id, product_name;
 ```
-### Steps:
+#### Steps:
  - Creating a CTE table `(CTE_ranked_sales)` using a window function, `DENSE_RANK` to create a ranking column based on the `customer_id` and ordered by the `order_date`
  - Using `DENSE_RANK`, because a customer might have ordered more than one item in the same day
  - From the table created, we take the columns needed where the `ranked_products` = 1
  
-### Answer
+#### Answer
 | customer_id | product_name |
 | ----------- | ------------ |
 |      A      |    curry     |
@@ -80,4 +80,47 @@ GROUP BY customer_id, product_name;
 - Customer A's first choices are curry and sushi
 - Customer B's first choice is curry
 - Customer C's first choice is ramen
+
+### 4. What is the most purchased item on the menu and how many times was it purchased by all customers?
+
+```sql
+SELECT TOP 1 M.product_name, COUNT(S.customer_id) AS number_of_purchased
+FROM sales AS S
+JOIN menu AS M
+ON S.product_id = M.product_id
+GROUP BY M.product_name
+ORDER BY number_of_purchased DESC;
+```
+#### Steps:
+ - Using `COUNT()` to find the number of each item purchased and `ORDER BY` in **descending order**
+ - `TOP 1` will output the first product
+
+#### Answer
+| product_name | number_of_purchased |
+| ------------ | ------------------- |
+|     ramen    |          8          |
+
+### 5. Which item was the most popular for each customer?
+
+```sql
+WITH CTE_nrOrders AS (
+	SELECT S.customer_id, M.product_name, COUNT(M.product_id) AS number_of_orders,
+	ROW_NUMBER() OVER(partition by S.customer_id ORDER BY COUNT(M.product_id) DESC) AS rn
+	FROM sales AS S
+	JOIN menu AS M
+	ON S.product_id = M.product_id
+	GROUP BY S.customer_id, product_name
+)
+
+SELECT customer_id, product_name, number_of_orders
+FROM CTE_nrOrders
+WHERE rn = 1;
+```
+#### Steps:
+ 
+
+
+
+
+
 
