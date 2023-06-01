@@ -117,9 +117,47 @@ FROM CTE_nrOrders
 WHERE rn = 1;
 ```
 #### Steps:
- 
+- Create a CTE table `CTE_nrOrders`, inside of which we join the `sales` and `menu` table using the `product_key`
+- Use of the aggregate function **COUNT()** to get the number of the products purchased by each client
+- We use the **Window Function**, `ROW_NUMBER()` to get the ranking of each customer based on the count of orders
 
 
+#### Answer
+| customer_id | product_name | number_of_order|
+| ----------- | ------------ | -------------- |
+|     A       |    ramen     |       3        |
+|     B       |    sushi     |       3        |
+|     C       |    ramen     |       3        |
+
+
+### 6. Which item was purchased first by the customer after they became member?
+
+```sql
+WITH CTE_firstOrderMember AS (
+	SELECT S.customer_id, M1.product_name, S.order_date,
+	ROW_NUMBER() OVER(PARTITION BY S.customer_id ORDER BY S.order_date) AS rn
+	FROM sales AS S
+	JOIN menu AS M1
+	ON S.product_id = M1.product_id
+	JOIN members AS M2
+	ON S.customer_id = M2.customer_id
+	WHERE S.order_date >= M2.join_date
+)
+SELECT customer_id, product_name
+FROM CTE_firstOrderMember
+WHERE rn = 1;
+```
+#### Steps:
+- Created a CTE table, `CTE_firstOrderMemeber`, inside of which I have used the **Row_Number()** window function to create a rank of the customers
+partitioned by the `customer_id` and ordered by `order_date`
+- Joined the tables `sales` and `menu` on `customer_id` column
+- Add the condition where the `order_date` >= `join_date` as we need the products purchased after becoming e member.
+
+#### Answer
+| customer_id |	product_name |
+| ----------- | ------------ |
+|      A      |    ramen     |
+|      B      |    sushi     |
 
 
 
