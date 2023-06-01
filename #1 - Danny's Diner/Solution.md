@@ -159,6 +159,87 @@ partitioned by the `customer_id` and ordered by `order_date`
 |      A      |    ramen     |
 |      B      |    sushi     |
 
+### 7. Which item was purchased just before the customer became a member?
 
+```sql
+WITH CTE_FirstOrderBeforeMember AS (
+	SELECT S.customer_id, M1.product_name, S.order_date, 
+	DENSE_RANK() OVER(PARTITION BY S.customer_id ORDER BY S.order_date DESC) AS ranking
+	FROM sales AS S
+	JOIN menu AS M1
+	ON S.product_id = M1.product_id
+	JOIN members AS M2
+	ON S.customer_id = M2.customer_id
+	WHERE S.order_date < M2.join_date
+)
+
+SELECT customer_id, product_name
+FROM CTE_FirstOrderBeforeMember
+WHERE ranking = 1
+```
+
+#### Answer
+| customer_id |	product_name |
+| ----------- | ------------ |
+|      A      |    sushi     |
+|      B      |    sushi     |
+
+### 8. What is the total items and amound spent for each member before they became a member?
+
+```sql
+SELECT S.customer_id, COUNT(M1.product_id) AS total_orders, SUM(M1.price) AS total_amount
+FROM sales AS S
+JOIN menu AS M1
+ON S.product_id = M1.product_id
+JOIN members AS M2
+ON S.customer_id = M2.customer_id
+WHERE S.order_date < M2.join_date
+GROUP BY S.customer_id;
+```
+
+#### Steps:
+- Selecting the `customer_id` and using the **COUNT()** function to get the total number of items purchased, 
+**SUM()** function to get the total price.
+- Joining the tables `sales` and `menu` on `product_id` column, and then with `members` on `customer_id` column
+- The condition should be `order_date` < `join_date`
+
+#### Answer:
+| customer_id | total_orders | total_amount |
+| ----------- | ------------ | ------------ |
+|      A      |     2        |      25      |
+|      B      |     3        |      40      |
+
+
+### 9. If each $1 spent equates to 10 points and sushi has sx points multiplier - how many points would each customer have?
+
+```sql
+WITH CTE_points AS (
+	SELECT S.customer_id, M.product_name, M.price,
+	CASE
+		WHEN M.product_name = 'sushi' THEN 20 * price
+		ELSE 10 * price
+	END AS points_collected
+	FROM sales AS S
+	JOIN menu AS M
+	ON S.product_id = M.product_id
+)
+ SELECT customer_id, SUM(points_collected) AS points
+ FROM CTE_points
+ GROUP BY customer_id;
+ ```
+ 
+ #### Steps:
+ - Creating a CTE table, `CTE_points` where we join the tables `sales` and `menu` on `product_id`
+ - Inside the CTE table, create a new column using **CASE WHEN** to get te number of points
+ - In the end we select the `customer_id` and use the **SUM()** function to get the total number of the points collected
+
+#### Answer:
+| customer_id |	points_collected |
+| ----------- | ---------------- |
+|      A      |    860           |
+|      B      |    940           |
+|      C      |    360           |
+
+ 
 
 
