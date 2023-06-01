@@ -240,6 +240,32 @@ WITH CTE_points AS (
 |      B      |    940           |
 |      C      |    360           |
 
- 
+### 10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
+
+```sql
+WITH CTE_dates AS (
+		SELECT *,
+			   DATEADD(day, 6, join_date) AS valid_date,
+			   EOMONTH('2021-01-31') AS last_date
+		FROM members 
+)
+
+SELECT d.customer_id,
+		SUM(CASE WHEN m.product_name = 'sushi' THEN 20 * m.price
+		         WHEN s.order_date between d.join_date AND d.valid_date THEN 20 * m.price
+		         ELSE 10 * m.price END) AS total_points
+FROM CTE_dates as d
+JOIN sales AS s 
+ON  d.customer_id = s.customer_id
+JOIN menu AS m 
+ON s.product_id = m.product_id
+WHERE s.order_date <= d.last_date
+GROUP BY d.customer_id;
+```
+#### Answer:
+| customer_id |	total_points     |
+| ----------- | ---------------- |
+|      A      |    1370          |
+|      B      |    820           |
 
 
