@@ -1,6 +1,3 @@
-Schema SQL Query SQL ResultsEdit on DB Fiddle
-CREATE SCHEMA pizza_runner;
-SET search_path = pizza_runner;
 
 DROP TABLE IF EXISTS runners;
 CREATE TABLE runners (
