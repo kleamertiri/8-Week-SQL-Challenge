@@ -99,9 +99,12 @@ ALTER COLUMN duration INT;
 
 ALTER TABLE #TEMP_runners_orders
 ALTER COLUMN distance FLOAT;
+```
 
-ALTER TABLE #TEMP_runners_orders
-ALTER COLUMN pickup_time DATETIME;
+For the `pickup_time` column, we remove te time from the date.
+```sql
+UPDATE #TEMP_runners_orders
+SET pickup_timE = SUBSTRING(pickup_time, 1, 10)
 ```
 
 **After:**
