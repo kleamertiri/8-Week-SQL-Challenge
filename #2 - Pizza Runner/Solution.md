@@ -8,7 +8,7 @@ Here will show and explain everything I have done to solve the **Pizza Runner Ch
 ### :arrow_forward: Data Cleaning and Transformation.
 
 <details>
-<summary>:two:Data Cleaning & Transformation</summary>
+<summary>:one:Data Cleaning & Transformation</summary>
 	
 After viewing each table, I noticed some data irregularity in the `customer_order` and `runner_orders` tables.
 
@@ -16,7 +16,8 @@ After viewing each table, I noticed some data irregularity in the `customer_orde
 
 **Before:**
 
-![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/3f5a00ca-635a-4352-8274-b1847d5d4154)
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/f9799e70-bdef-40b4-b6f7-9ef33af96337)
+
 
 I noticed in the `exclusions` and `extras` columns that different cells have no values and they are represented in a inconsistent manner. 
 Some of the cells are empty, **null** as a string or **NULL** data type. There is needed to represent this cells in the some way, 
@@ -42,7 +43,8 @@ in the temp table, leaving the existing table untouched for reference and going 
 
 **After:**
 
-![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/7df27a5b-5b8c-47d9-b6c6-cf3d235b9bc8)
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/da5469a2-4f30-437b-829c-e03c6883dedc)
+
 
 
 `runner_orders`
