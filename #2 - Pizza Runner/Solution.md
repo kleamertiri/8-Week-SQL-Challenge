@@ -109,7 +109,8 @@ SET pickup_timE = SUBSTRING(pickup_time, 1, 10)
 
 **After:**
 
-![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/58412284-873a-4523-95cb-0db3eb7e1674)
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/ce9c6166-376d-48f1-8846-b395fbc6b3a6)
+
 
 </details>
 
