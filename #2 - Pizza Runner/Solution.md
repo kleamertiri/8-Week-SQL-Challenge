@@ -92,6 +92,18 @@ I created a temporary table (`#TEMP_runners_orders`) where:
 - in the `duration` column, removed *mins*, *minute*, *minutes* and converted the **null** cells to blank cells
 - in the `cancellation` column, converted the **null** and **NULL** to blank cells
 
+Also, some columns have the wrong data type and I changed it, since it might cause problems later
+```sql
+ALTER TABLE #TEMP_runners_orders
+ALTER COLUMN duration INT;
+
+ALTER TABLE #TEMP_runners_orders
+ALTER COLUMN distance FLOAT;
+
+ALTER TABLE #TEMP_runners_orders
+ALTER COLUMN pickup_time DATETIME;
+```
+
 **After:**
 
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/58412284-873a-4523-95cb-0db3eb7e1674)
