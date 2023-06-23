@@ -38,8 +38,9 @@ ALTER COLUMN duration INT;
 ALTER TABLE #TEMP_runners_orders
 ALTER COLUMN distance FLOAT;
 
-ALTER TABLE #TEMP_runners_orders
-ALTER COLUMN pickup_time DATETIME;
+--Getting just the date from pickup_time
+UPDATE #TEMP_runners_orders
+SET pickup_time = SUBSTRING(pickup_time, 1, 10);
 
 
 -- customer_orders table(cleaning + transformation + temp table)
