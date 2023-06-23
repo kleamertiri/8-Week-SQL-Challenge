@@ -21,7 +21,7 @@ After viewing each table, I noticed some data irregularity in the `customer_orde
 
 I noticed in the `exclusions` and `extras` columns that different cells have no values and they are represented in a inconsistent manner. 
 Some of the cells are empty, **null** as a string or **NULL** data type. There is needed to represent this cells in the some way, 
-because they can cause errors when they will be used in analysing the data. Since the data type of both columns is **VARCHAR**, the emppty values will be presented as empty strings.
+because they can cause errors when they will be used in analysing the data. Since the data type of both columns is **VARCHAR**, the empty values will be presented as empty strings.
 ```sql
 DROP TABLE IF EXISTS #TEMP_customer_orders;
 SELECT order_id, customer_id, pizza_id, 
