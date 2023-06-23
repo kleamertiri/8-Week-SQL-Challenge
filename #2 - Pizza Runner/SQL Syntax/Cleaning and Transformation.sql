@@ -31,6 +31,16 @@ FROM runner_orders;
 
 SELECT * FROM #TEMP_runners_orders;
 
+--Change the datatype of columns in #TEMP_runners_orders
+ALTER TABLE #TEMP_runners_orders
+ALTER COLUMN duration INT;
+
+ALTER TABLE #TEMP_runners_orders
+ALTER COLUMN distance FLOAT;
+
+ALTER TABLE #TEMP_runners_orders
+ALTER COLUMN pickup_time DATETIME;
+
 
 -- customer_orders table(cleaning + transformation + temp table)
 DROP TABLE IF EXISTS #TEMP_customer_orders;
