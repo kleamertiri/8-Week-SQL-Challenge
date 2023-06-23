@@ -10,7 +10,7 @@ Here will show and explain everything I have done to solve the **Pizza Runner Ch
 <details>
 <summary>:one:Data Cleaning & Transformation</summary>
 	
-After viewing each table, I noticed some data irregularity in the `customer_order` and `runner_orders` tables.
+After viewing each table, I noticed some data irregularity in the `customer_orders` and `runner_orders` tables.
 
 `customer_orders`
 
