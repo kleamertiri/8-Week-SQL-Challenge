@@ -300,4 +300,34 @@ GROUP BY c.order_id
 
 - There is just 1 pizza which has extra toppings and has been removed ingredient/s
 
+9- What was the total volume of pizzas ordered for each hour of the day?
+
+*Use of `DATEPART(HOUR, '2019-12-01 12:00:00')` to get the hour of each order*
+
+```sql
+SELECT DATEPART(HOUR, order_time) AS hour_of_day, COUNT(order_id) AS nr_pizza_ordered
+FROM #TEMP_customer_orders
+GROUP BY DATEPART(HOUR, order_time);
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/5d00246f-f6f2-4316-a461-5cdb38567667)
+
+- The best hours, where the number of pizzas ordering is higher, are at 13:00, 18:00, 21:00 and 23:00
+
+10- What was the volume of orders for each day of the week?
+
+*Use of `DATENAME(WEEKDAY, order_time)` to get the days with their corresponding name in the calendar*
+
+```sql
+SELECT DATENAME(WEEKDAY, order_time) AS day_of_week, COUNT(order_id) AS volume_of_pizzas
+FROM #TEMP_customer_orders
+GROUP BY DATENAME(WEEKDAY, order_time)
+ORDER BY volume_of_pizzas;
+
+```
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/48965035-e281-4793-a8cf-0c2ab87be5f7)
+
+- The days, where the number of pizzas ordering is higher, are on Wednesday and Saturday
+
+
 
