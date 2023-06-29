@@ -101,7 +101,7 @@ ALTER TABLE #TEMP_runners_orders
 ALTER COLUMN distance FLOAT;
 ```
 
-For the `pickup_time` column, we remove te time from the date.
+For the `pickup_time` column, I removed the time from the datetime data type.
 ```sql
 UPDATE #TEMP_runners_orders
 SET pickup_timE = SUBSTRING(pickup_time, 1, 10)
