@@ -115,6 +115,8 @@ SET pickup_timE = SUBSTRING(pickup_time, 1, 10)
 </details>
 
 ### :arrow_forward: A. Pizza Metrics
+<details>
+<summary>Solution</summary>
 1- How many pizzas were ordered?
 
 ```sql
@@ -329,5 +331,5 @@ ORDER BY volume_of_pizzas;
 
 - The days, where the number of pizzas ordering is higher, are on Wednesday and Saturday
 
-
+</details>
 
