@@ -8,7 +8,7 @@ Here will show and explain everything I have done to solve the **Pizza Runner Ch
 ### :arrow_forward: Data Cleaning and Transformation.
 
 <details>
-<summary> :one:Data Cleaning & Transformation</summary>
+<summary>Data Cleaning & Transformation</summary>
 	
 After viewing each table, I noticed some data irregularity in the `customer_orders` and `runner_orders` tables.
 
