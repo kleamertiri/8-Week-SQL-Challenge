@@ -148,7 +148,7 @@ FROM #TEMP_customer_orders AS c
 INNER JOIN #TEMP_runners_orders AS r
 ON c.order_id = r.order_id
 WHERE r.cancellation = ''
-GROUP BY r.runner_id
+GROUP BY r.runner_id;
 ```
 **Steps:**
 - Creating a `JOIN` between `#TEMP_customer_orders` and `#TEMP_runners_order`
@@ -161,9 +161,88 @@ GROUP BY r.runner_id
 - Runner 1 has delivered successfully 4 orders
 - Runner 2 has delivered successfully 3 orders
 - Runner 3 has delivered successfully 1 order
- 
+
+4- How many of each type of pizza was delivered?
+
+*Note!* Change the datatype of `pizza_column` from **TEXT** to **VARCHAR()**, to avoid the error
+
+```sql
+ALTER TABLE pizza_names
+ALTER COLUMN pizza_name VARCHAR(70);
+```
+
+```sql
+SELECT pizza_name, COUNT(c.pizza_id) AS number_of_pizza
+FROM #TEMP_customer_orders AS c
+INNER JOIN #TEMP_runners_orders AS r
+ON c.order_id = r.order_id
+INNER JOIN pizza_names AS p
+ON c.pizza_id = p.pizza_id
+WHERE r.cancellation = ''
+GROUP BY pizza_name;
+```
+
+**Steps:**
+- Creating a `INNER JOIN` between `#TEMP_customer_orders`, `#TEMP_runners_order` and `pizza_names`
+- Getting the data where the `cancellation` column has no value(the delivery has been successful)
+- Grouping the data by `pizza_name`
+- Getting the `pizza_name` and the number of each *(using `COUNT()`)* that has been delivered successfully.
+  
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/60799f4a-d086-432e-9e8b-94e0844c777a)
+
+- Has been delivered 9 Meatlovers
+- Has been delivered 3 Vegetarian
 
 
+5- How many Vegetarian and Meatlovers were ordered by each customer?
 
+```sql
+SELECT  c.customer_id, p.pizza_name, COUNT(c.pizza_id) AS pizza_nr
+FROM #TEMP_customer_orders AS c
+INNER JOIN pizza_names AS p
+ON c.pizza_id = p.pizza_id
+GROUP BY c.customer_id, p.pizza_name
+ORDER BY c.customer_id;
+```
 
+**Steps:**
+- Creating a `INNER JOIN` between `#TEMP_customer_orders` and `pizza_names`
+- Grouping the data by `pizza_name` and `customer_id`
+- Getting `customer_id`, `pizza_name` and the number of pizzas ordered by each customer for each kind of *(COUNT(pizza_id))*
 
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/f9dc777c-bdd0-454b-a86c-87d6cbcb7fb2)
+
+- Customer 101 ordered 2 Meatlovers and 1 Vegetarian
+- Customer 102 ordered 2 Meatlovers and 1 Vegetarian
+- Customer 103 ordered 3 Meatlovers and 1 Vegetarian
+- Customer 104 ordered 3 Meatlovers
+- Customer 105 ordered 1 Vegetarian
+
+6- What was the maximum number of pizzas delivered in a single order?
+
+```sql
+WITH pizza_count_cte AS
+(
+  SELECT 
+    c.order_id, 
+    COUNT(c.pizza_id) AS pizza_per_order
+  FROM #TEMP_customer_orders AS c
+  JOIN #TEMP_runners_orders AS r
+    ON c.order_id = r.order_id
+  WHERE r.cancellation = ''
+  GROUP BY c.order_id
+)
+
+SELECT 
+  MAX(pizza_per_order) AS pizza_count
+FROM pizza_count_cte;
+```
+
+**Steps:**
+- Creating a CTE Table, where get the number of pizzas per order
+- Using the aggregate function `MAX()` to get the maximum number of pizzas delivered in a single order
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/6ee980dd-91f0-431f-bee5-e1fe1d253d8b)
+
+- The maximum number of pizzas delivered in a single order, is 3
