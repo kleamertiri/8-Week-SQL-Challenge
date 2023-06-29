@@ -114,9 +114,9 @@ SET pickup_timE = SUBSTRING(pickup_time, 1, 10)
 
 </details>
 
-### :arrow_forward: A. Pizza Metrics
+### :arrow_forward: Case Study Questions
 <details>
-<summary>Solution</summary>
+<summary>A. Pizza Metrics</summary>
 1- How many pizzas were ordered?
 
 ```sql
