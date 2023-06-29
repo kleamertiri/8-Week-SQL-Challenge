@@ -193,8 +193,8 @@ GROUP BY pizza_name;
 
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/60799f4a-d086-432e-9e8b-94e0844c777a)
 
-- Has been delivered 9 Meatlovers
-- Has been delivered 3 Vegetarian
+- It has been delivered 9 Meatlovers
+- It has been delivered 3 Vegetarian
 
 
 5- How many Vegetarian and Meatlovers were ordered by each customer?
@@ -278,8 +278,8 @@ GROUP BY c.customer_id
 
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/8ba0ebfb-a5cc-4dfa-a721-7876dfa6612c)
 
-- Customer 101 and 102 got 2 and 3 pizzas with their standart recipe
-- Customer 103 and 105 got 3 and 1 pizza with changes
+- Customers 101 and 102 got 2 and 3 pizzas with their standart recipe
+- Customers 103 and 105 got 3 and 1 pizza with changes
 - Customer 104 got 1 pizza with the standart recipe and 2 pizzas with changes
 
 8- How many pizzas were delivered that had both exclusions and extras?
