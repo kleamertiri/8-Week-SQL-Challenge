@@ -115,7 +115,7 @@ SET pickup_timE = SUBSTRING(pickup_time, 1, 10)
 </details>
 
 ### :arrow_forward: A. Pizza Metrics
-**1. How many pizzas were ordered?**
+1. How many pizzas were ordered?
 
 ```sql
 SELECT COUNT(*) AS pizza_ordered
