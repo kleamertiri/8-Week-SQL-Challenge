@@ -246,3 +246,58 @@ FROM pizza_count_cte;
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/6ee980dd-91f0-431f-bee5-e1fe1d253d8b)
 
 - The maximum number of pizzas delivered in a single order, is 3
+
+7- For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+
+```sql
+SELECT c.customer_id, 
+		SUM(CASE
+			WHEN c.exclusions = '' and c.extras = '' THEN 1
+			ELSE 0
+			END) AS pizza_without_change,
+		SUM(CASE
+			WHEN c.exclusions != '' or c.extras != '' THEN 1
+			ELSE 0
+			END) AS pizza_with_change
+FROM #TEMP_customer_orders AS c
+INNER JOIN #TEMP_runners_orders AS r
+ON c.order_id = r.order_id
+WHERE r.cancellation = ''
+GROUP BY c.customer_id
+```
+
+**Steps:**
+- Creating a `INNER JOIN` between `#TEMP_customer_orders` and `#TEMP_runners_order` 
+- Getting the data where the `cancellation` column has no value(the delivery has been successful)
+- Grouping by `customer_id`
+- Using `CASE WHEN` statement to create two new columns (`pizza_without_change` and `pizza_with_change`)
+- Each of the pizzas has a standart recipe, but clients can change them by adding extra topping (`extras`) or removing ingredient/s (`exclusions`)
+- Using the aggregate function `SUM()` to get the number of each of them
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/8ba0ebfb-a5cc-4dfa-a721-7876dfa6612c)
+
+- Customer 101 and 102 got 2 and 3 pizzas with their standart recipe
+- Customer 103 and 105 got 3 and 1 pizza with changes
+- Customer 104 got 1 pizza with the standart recipe and 2 pizzas with changes
+
+8- How many pizzas were delivered that had both exclusions and extras?
+```sql
+SELECT c.order_id, COUNT(pizza_id) AS pizza_with_changes
+FROM #TEMP_customer_orders AS c
+INNER JOIN #TEMP_runners_orders AS r
+ON c.order_id = r.order_id
+WHERE r.cancellation = '' and c.exclusions != '' and c.extras != ''
+GROUP BY c.order_id
+```
+
+**Steps:**
+- Creating a `INNER JOIN` between `#TEMP_runners_order` and `#TEMP_customer_orders`
+- Getting the data where the `cancellation` column has no value(the delivery has been successful), `exclusions` and `extras` columns are not blank
+- Grouping by the `order_id`
+- Getting the number of pizzas with changes in their standart recipe *(COUNT())*
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/1aa95098-cdcf-45cd-8655-02e24381f3fa)
+
+- There is just 1 pizza which has extra toppings and has been removed ingredient/s
+
+
