@@ -115,10 +115,55 @@ SET pickup_timE = SUBSTRING(pickup_time, 1, 10)
 </details>
 
 ### :arrow_forward: A. Pizza Metrics
-1. How many pizzas were ordered?
+1- How many pizzas were ordered?
 
 ```sql
 SELECT COUNT(*) AS pizza_ordered
 FROM customer_orders;
 
 ```
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/cb8692b8-ced5-4d86-8558-5506087657ef)
+
+Using the aggregate function `COUNT()` to find the total number of pizzas ordered.
+
+- The total number of pizzas ordered is 14
+
+2- How many unique customer orders were made?
+```sql
+SELECT COUNT(DISTINCT order_id) AS unique_customers_orders
+FROM customer_orders;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/25f47fe6-31da-4ca1-966b-a614b710e5c0)
+
+Using the aggregate function `COUNT()` to find the total number and `DISTINCT` to get the unique values.
+
+- The total number of unique orders is 10
+
+3- How many successful orders were delivered by each runner?
+
+```sql
+SELECT COUNT(DISTINCT c.order_id) AS orders_delivered, r.runner_id AS runner
+FROM #TEMP_customer_orders AS c
+INNER JOIN #TEMP_runners_orders AS r
+ON c.order_id = r.order_id
+WHERE r.cancellation = ''
+GROUP BY r.runner_id
+```
+**Steps:**
+- Creating a `JOIN` between `#TEMP_customer_orders` and `#TEMP_runners_order`
+- Getting the data where the `cancellation` column has no value(the delivery has been successful)
+- Grouping the data by `runner_id`
+- Getting the `runner_id` and the sum of the unique orders(using `COUNT()` and `DISTINCT`)
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/c47c5e3e-843d-4dc9-8188-b691fc6ea426)
+
+- Runner 1 has delivered successfully 4 orders
+- Runner 2 has delivered successfully 3 orders
+- Runner 3 has delivered successfully 1 order
+ 
+
+
+
+
+
