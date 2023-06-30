@@ -338,8 +338,9 @@ ORDER BY volume_of_pizzas;
 <summary>B. Runner and Customer Experience</summary> 
 	<hr/>
 1- How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01) 
-
+	
 **_Note!_ 2021-01-01 is on Friday, so the first complete week starts on the 4th.**
+
 
 ![Capture](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/d390af2e-a2f4-4eb6-a90e-f7595b87798f)
 
@@ -361,11 +362,63 @@ ORDER BY week_nr;
 
 <hr/>
 
+2- What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
 
+**_Note_: It is needed to find the difference between the `order_time` and `pickup_time` to find the average time in minutes.**
 
+```sql
+WITH CTE_min AS (
+		SELECT c.order_id, r.runner_id, DATEDIFF(minute, c.order_time, r.pickup_time) AS difference_min
+		FROM #TEMP_customer_orders AS c
+		INNER JOIN #TEMP_runners_orders AS r
+		ON c.order_id = r.order_id
+		WHERE r.cancellation = ''
+		GROUP BY c.order_id,r.runner_id, c.order_time, r.pickup_time
+		
+)
+SELECT AVG(difference_min) AS avg_difference_min
+FROM CTE_min;
+```
 
+**Steps:**
+- Joining the tables `#TEMP_customer_orders` and `#TEMP_runners_orders`
+- Filtering the data and getting the rows where `cancellation` is blank (the order has been delivered successfully)
+- Getting the difference in minutes between `pickup_time` and `order_time`, using `DATEDIFF()`
+- Creating a CTE table, from which we get the average time
 
+ ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/3d4a41ae-3fab-4390-a958-5164d1d7609f)
 
+- The average time it takes each runner to arrive at the HQ is 16 minutes
+
+<hr/>
+
+3- Is there any relationship between the number of pizzas and how long the order takes to prepare?
+
+**_Note_: Find the number of pizzas per average time in minutes.**
+
+```sql
+WITH CTE_pizza_prepare AS (
+		SELECT c.order_id,COUNT(c.order_id) AS number_of_pizza, DATEDIFF(minute, c.order_time, r.pickup_time) AS difference_min
+		FROM #TEMP_customer_orders AS c
+		INNER JOIN #TEMP_runners_orders AS r
+		ON c.order_id = r.order_id
+		WHERE r.cancellation = ''
+		GROUP BY c.order_id, c.order_time, r.pickup_time
+		
+	)
+
+SELECT number_of_pizza, AVG(difference_min) AS avg_time_prepare
+FROM CTE_pizza_prepare
+GROUP BY number_of_pizza
+ORDER BY number_of_pizza
+```
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/d8d31898-7e3e-4d36-8d7b-e8c5ddb5166d)
+
+- The more pizza ordered, the least amount of time it is needed to prepare each of them
+
+<hr/>
+
+4- What was the average distance travelled for each customer?
 
 
 
