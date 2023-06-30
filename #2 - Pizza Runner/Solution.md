@@ -116,7 +116,8 @@ SET pickup_timE = SUBSTRING(pickup_time, 1, 10)
 
 ### :arrow_forward: Case Study Questions
 <details>
-<summary>A. Pizza Metrics</summary>
+<summary>A. Pizza Metrics</summary> 
+	<hr/>
 1- How many pizzas were ordered?
 
 ```sql
@@ -129,7 +130,7 @@ FROM customer_orders;
 Using the aggregate function `COUNT()` to find the total number of pizzas ordered.
 
 - The total number of pizzas ordered is 14
-
+<hr/>
 2- How many unique customer orders were made?
 ```sql
 SELECT COUNT(DISTINCT order_id) AS unique_customers_orders
@@ -141,7 +142,7 @@ FROM customer_orders;
 Using the aggregate function `COUNT()` to find the total number and `DISTINCT` to get the unique values.
 
 - The total number of unique orders is 10
-
+<hr/>
 3- How many successful orders were delivered by each runner?
 
 ```sql
@@ -163,7 +164,7 @@ GROUP BY r.runner_id;
 - Runner 1 has delivered successfully 4 orders
 - Runner 2 has delivered successfully 3 orders
 - Runner 3 has delivered successfully 1 order
-
+<hr/>
 4- How many of each type of pizza was delivered?
 
 *Note!* Change the datatype of `pizza_column` from **TEXT** to **VARCHAR()**, to avoid the error
@@ -196,7 +197,7 @@ GROUP BY pizza_name;
 - It has been delivered 9 Meatlovers
 - It has been delivered 3 Vegetarian
 
-
+<hr/>
 5- How many Vegetarian and Meatlovers were ordered by each customer?
 
 ```sql
@@ -220,7 +221,7 @@ ORDER BY c.customer_id;
 - Customer 103 ordered 3 Meatlovers and 1 Vegetarian
 - Customer 104 ordered 3 Meatlovers
 - Customer 105 ordered 1 Vegetarian
-
+<hr/>
 6- What was the maximum number of pizzas delivered in a single order?
 
 ```sql
@@ -248,7 +249,7 @@ FROM pizza_count_cte;
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/6ee980dd-91f0-431f-bee5-e1fe1d253d8b)
 
 - The maximum number of pizzas delivered in a single order, is 3
-
+<hr/>
 7- For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
 
 ```sql
@@ -281,7 +282,7 @@ GROUP BY c.customer_id
 - Customers 101 and 102 got 2 and 3 pizzas with their standart recipe
 - Customers 103 and 105 got 3 and 1 pizza with changes
 - Customer 104 got 1 pizza with the standart recipe and 2 pizzas with changes
-
+<hr/>
 8- How many pizzas were delivered that had both exclusions and extras?
 ```sql
 SELECT c.order_id, COUNT(pizza_id) AS pizza_with_changes
@@ -301,7 +302,7 @@ GROUP BY c.order_id
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/1aa95098-cdcf-45cd-8655-02e24381f3fa)
 
 - There is just 1 pizza which has extra toppings and has been removed ingredient/s
-
+<hr/>
 9- What was the total volume of pizzas ordered for each hour of the day?
 
 *Use of `DATEPART(HOUR, '2019-12-01 12:00:00')` to get the hour of each order*
@@ -315,7 +316,7 @@ GROUP BY DATEPART(HOUR, order_time);
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/5d00246f-f6f2-4316-a461-5cdb38567667)
 
 - The best hours, where the number of pizzas ordering is higher, are at 13:00, 18:00, 21:00 and 23:00
-
+<hr/>
 10- What was the volume of orders for each day of the week?
 
 *Use of `DATENAME(WEEKDAY, order_time)` to get the days with their corresponding name in the calendar*
@@ -334,5 +335,40 @@ ORDER BY volume_of_pizzas;
 </details>
 
 <details>
-<summary>B. Runner and Customer Experience</summary>
+<summary>B. Runner and Customer Experience</summary> 
+	<hr/>
+1- How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01) 
+
+**_Note!_ 2021-01-01 is on Friday, so the first complete week starts on the 4th.**
+
+![Capture](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/d390af2e-a2f4-4eb6-a90e-f7595b87798f)
+
+```sql
+SELECT DATEPART(WEEK, DATEADD(DAY,3,registration_date)) - 1 AS week_nr, COUNT(runner_id) AS nr_of_runners
+FROM runners
+GROUP BY DATEPART(WEEK, DATEADD(DAY,3,registration_date))
+ORDER BY week_nr;
+```
+**Steps:**
+- Since the first full week in January starts at 04-01-2021, we add 3 days to each od the `registration_date` usinf `DATEADD()`
+- Getting the week of the year in which each date is, using `DATEPART(WEEK, registration_date)`
+- Extracting 1 from the week we get, since `DATEPART()` recognizes the first week of the year from 01-01-2021
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/0fb38394-ebb9-4dc9-9413-526cff0caf96)
+
+- In the first week of the year, signed up 2 runners
+- In the second and third week of the year, signed up just 1 runner
+
+<hr/>
+
+
+
+
+
+
+
+
+
+
+
 </details>
