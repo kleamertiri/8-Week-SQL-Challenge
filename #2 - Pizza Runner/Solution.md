@@ -420,6 +420,76 @@ ORDER BY number_of_pizza
 
 4- What was the average distance travelled for each customer?
 
+```sql
+SELECT c.customer_id, ROUND(AVG(distance),2) AS avg_distance
+FROM #TEMP_customer_orders AS c
+INNER JOIN #TEMP_runners_orders AS r
+ON c.order_id = r.order_id
+WHERE cancellation = ''
+GROUP BY c.customer_id
+ORDER BY avg_distance;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/5f984101-e923-4ca7-ab2a-2800862dc2a9)
+
+- Customer 104 lives closer (10km) while customer 105 lives the farthest (25km).
+
+<hr/>
+
+5- What was the difference between the longest and shortest delivery times for all orders?
+
+```sql
+SELECT MAX(duration) - MIN(duration) AS diff_delivery_time	
+FROM #TEMP_runners_orders
+WHERE cancellation = '';
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/6dd8bf00-8a3c-4881-bfbd-a07cf496b105)
+
+- The difference between the longest and shortest delivery is 30 min.
+
+<hr/>
+ 6- What was the average speed for each runner for each delivery and do you notice any trend for these values?
+
+ **_Note!_ The speed formula is _s = d / t_, where:**
+ - **d is the distance (km)**
+ - **t is the time (h)**
+
+```sql
+SELECT order_id,runner_id, ROUND(distance / duration, 2) * 60.00 AS average_speed
+FROM #TEMP_runners_orders
+WHERE cancellation = ''
+order by runner_id, average_speed;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/4274938d-767e-43df-bc2a-a96dc63e2ead)
+
+- The runner with the id 2, has a large difference between the lowest _(34.8km/h)_ and the others _(60km/h, 93.6km/h)_
+
+<hr/>
+
+7- What is the successful delivery percentage for each runner?
+
+**_Note!_ Find the number of the successful deliveries and compare to the total number of deliveries for each runner**
+
+```sql
+WITH CTE_deliveries AS (
+	SELECT runner_id,
+	SUM(CASE
+		WHEN cancellation = '' THEN 1
+		ELSE 0 END) AS successful_deliveries,
+	COUNT(order_id) AS total_deliveries
+	FROM #TEMP_runners_orders
+	GROUP BY runner_id
+)
+
+SELECT runner_id, ROUND(successful_deliveries / CAST(total_deliveries AS DECIMAL(1,0)) * 100, 2) AS successful_perc
+FROM CTE_deliveries;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/fccbc808-c579-4e67-af1b-241e4461b3f8)
+
+- Runner 1 has delivered succesfully all his/her orders.
 
 
 
