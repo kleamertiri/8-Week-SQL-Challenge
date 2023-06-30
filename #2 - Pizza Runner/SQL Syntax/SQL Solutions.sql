@@ -43,10 +43,6 @@ UPDATE #TEMP_runners_orders
 SET pickup_timE = SUBSTRING(pickup_time, 1, 10)
 
 
-
-
-
-
 -- customer_orders table(cleaning + transformation + temp table)
 DROP TABLE IF EXISTS #TEMP_customer_orders;
 SELECT order_id, customer_id, pizza_id, 
@@ -63,10 +59,11 @@ INTO #TEMP_customer_orders
 FROM customer_orders;
 
 
-SELECT * FROM customer_orders
+
 -------------------------
 --- A. Pizza Metrics ----
 -------------------------
+
 
 --1.How many pizzas were ordered?
 SELECT COUNT(*) AS pizza_ordered
@@ -124,7 +121,6 @@ SELECT
 FROM pizza_count_cte;
 
 
-
 --7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
 SELECT c.customer_id, 
 		SUM(CASE
@@ -149,7 +145,6 @@ ON c.order_id = r.order_id
 WHERE r.cancellation = '' and c.exclusions != '' and c.extras != ''
 GROUP BY c.order_id
 
-
 --9. What was the total volume of pizzas ordered for each hour of the day?
 SELECT DATEPART(HOUR, order_time) AS hour_of_day, COUNT(order_id) AS nr_pizza_ordered
 FROM #TEMP_customer_orders
@@ -166,6 +161,7 @@ ORDER BY volume_of_pizzas
 --- B. Runner and Customer Experience ----
 ------------------------------------------
 
+	
 --1.How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
 SELECT DATEPART(WEEK, DATEADD(DAY,3,registration_date)) - 1 AS week_nr, COUNT(runner_id) AS nr_of_runners
 FROM runners
