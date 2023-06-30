@@ -78,7 +78,7 @@ This case study has **LOTS** of questions - they are broken up by area of focus 
 </details>
 
 <details>
-  <summary>C.Ingredient Optimisation</summary>
+  <summary>C. Ingredient Optimisation</summary>
 
 1. What are the standard ingredients for each pizza?
 2. What was the most commonly added extra?
