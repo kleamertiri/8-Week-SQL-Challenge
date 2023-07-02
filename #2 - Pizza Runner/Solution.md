@@ -492,6 +492,54 @@ FROM CTE_deliveries;
 - Runner 1 has delivered succesfully all his/her orders.
 
 
+</details>
 
+
+<details>
+<summary>C. Ingredient Optimisation</summary> <hr/>
+1- What are the standard ingredients for each pizza?
+	
+**_Notes:_**
+- Change the datatype of the columns _toppings_ (`pizza_recipes` ), _topping_name_ (`pizza_toppings`) and _pizza_name_ (`pizza_names`)
+  from `TEXT` to `VARCHAR()` 
+
+```sql
+ALTER TABLE pizza_recipes
+ALTER COLUMN toppings VARCHAR(max);
+
+ALTER TABLE pizza_toppings
+ALTER COLUMN topping_name VARCHAR(MAX);
+
+ALTER TABLE pizza_names
+ALTER COLUMN pizza_name VARCHAR(MAX);
+```
+
+```sql
+DROP TABLE IF EXISTS #TEMP_pizza_recipes;
+SELECT r.pizza_id AS pizza_id,
+	  ltrim(split_table.value) AS toppings
+INTO #TEMP_pizza_recipes
+FROM pizza_recipes AS r
+outer apply string_split(r.toppings, ',') as split_table
+
+ALTER TABLE #TEMP_pizza_recipes
+ALTER COLUMN toppings INT
+
+
+WITH CTE_pizza_ingredients AS (
+	SELECT name.pizza_name, t.topping_name
+	FROM  #TEMP_pizza_recipes AS r
+	INNER JOIN pizza_names AS name
+	ON name.pizza_id = r.pizza_id
+	INNER JOIN pizza_toppings AS t
+	ON t.topping_id = r.toppings
+)
+
+SELECT pizza_name, STRING_AGG(topping_name, ', ') AS toppings
+FROM CTE_pizza_ingredients
+GROUP BY pizza_name;
+```
+**Steps: **
 
 </details>
+
