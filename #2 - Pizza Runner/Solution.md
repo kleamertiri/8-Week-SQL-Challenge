@@ -539,7 +539,8 @@ SELECT pizza_name, STRING_AGG(topping_name, ', ') AS toppings
 FROM CTE_pizza_ingredients
 GROUP BY pizza_name;
 ```
-**Steps: **
+
+**Steps:**
 
 </details>
 
