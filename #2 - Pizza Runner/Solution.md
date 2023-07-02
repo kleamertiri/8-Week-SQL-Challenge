@@ -541,6 +541,14 @@ GROUP BY pizza_name;
 ```
 
 **Steps:**
+- Using the `STRING_SPLIT()` function to split comma-separated list of values which are in the same cell and creating a temporal
+  table `#TEMP_pizza_recipes` 
+- Changing the `toppings` datatype, from `VARCHAR()` to `INT`, in order to join the temp table with `pizza_names` and `pizza_toppings`
+- Using the `STRING_AGG()` function to concatenate the values with the same `pizza_name` in a list of values inside a cell
+
+
+
+
 
 </details>
 
