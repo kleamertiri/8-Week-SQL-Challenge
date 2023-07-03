@@ -553,12 +553,12 @@ GROUP BY pizza_name;
 2- What was the most commonly added extra?
 
 ```sql
-SELECT c.customer_id AS customer_id,
-	ltrim(split_table.value) AS extras
+DROP TABLE IF EXISTS #TEMP_pizza_extras;
+SELECT c.customer_id, c.pizza_id,
+	ltrim(ext_table.value) AS extras
 INTO #TEMP_pizza_extras
 FROM #TEMP_customer_orders as c
-outer apply string_split(c.extras, ',') as split_table;
-
+outer apply string_split(c.extras, ',') as ext_table;
 
 ALTER TABLE #TEMP_pizza_extras
 ALTER COLUMN extras INT;
@@ -582,7 +582,8 @@ GROUP BY t.topping_id, t.topping_name;
 3- What was the most common exclusion?
 
 ```sql
-SELECT c.customer_id AS customer_id,
+DROP TABLE IF EXISTS #TEMP_pizza_exclusions;
+SELECT c.customer_id, c.pizza_id, 
 	ltrim(split_table.value) AS exclusions
 INTO #TEMP_pizza_exclusions
 FROM #TEMP_customer_orders as c
