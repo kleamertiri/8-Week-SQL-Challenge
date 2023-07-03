@@ -550,7 +550,7 @@ GROUP BY pizza_name;
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/5e97897b-9a54-413c-b998-3953494c3d94)
 
 
-2- 2.What was the most commonly added extra?
+2- What was the most commonly added extra?
 
 ```sql
 SELECT c.customer_id AS customer_id,
@@ -579,6 +579,29 @@ GROUP BY t.topping_id, t.topping_name;
 - The most used ingredient as an extra is Bacon
 
 
+3- What was the most common exclusion?
+
+```sql
+SELECT c.customer_id AS customer_id,
+	ltrim(split_table.value) AS exclusions
+INTO #TEMP_pizza_exclusions
+FROM #TEMP_customer_orders as c
+outer apply string_split(c.exclusions, ',') as split_table;
+
+ALTER TABLE #TEMP_pizza_exclusions
+ALTER COLUMN exclusions INT;
+
+SELECT t.topping_id, t.topping_name, COUNT(*) AS toppings_nr_used 
+FROM #TEMP_pizza_exclusions AS e
+INNER JOIN pizza_toppings AS t
+ON t.topping_id = e.exclusions
+GROUP BY t.topping_id, t.topping_name
+ORDER BY toppings_nr_used DESC; 
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/a0ab851d-c133-4695-8a2e-132f9debe78d)
+
+- The most common ingredient that was excluded was the Cheese
 
 
 </details>
