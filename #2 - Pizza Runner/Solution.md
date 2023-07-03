@@ -547,6 +547,7 @@ GROUP BY pizza_name;
 - Using the `STRING_AGG()` function to concatenate the values with the same `pizza_name` in a list of values inside a cell
 
 
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/5e97897b-9a54-413c-b998-3953494c3d94)
 
 
 
