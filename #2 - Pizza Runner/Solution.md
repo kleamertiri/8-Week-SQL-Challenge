@@ -550,6 +550,36 @@ GROUP BY pizza_name;
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/5e97897b-9a54-413c-b998-3953494c3d94)
 
 
+2- 2.What was the most commonly added extra?
+
+```sql
+SELECT c.customer_id AS customer_id,
+	ltrim(split_table.value) AS extras
+INTO #TEMP_pizza_extras
+FROM #TEMP_customer_orders as c
+outer apply string_split(c.extras, ',') as split_table;
+
+
+ALTER TABLE #TEMP_pizza_extras
+ALTER COLUMN extras INT;
+
+SELECT t.topping_id, t.topping_name, COUNT(*) AS toppings_nr_used 
+FROM #TEMP_pizza_extras AS e
+INNER JOIN pizza_toppings AS t
+ON t.topping_id = e.extras
+GROUP BY t.topping_id, t.topping_name;
+```
+
+**Steps:**
+- Creating a temporal table `#TEMP_pizza_extras`, where we split the list of values in the `extras` column
+- Changing the datatype of the `extras` column (`#TEMP_pizza_extras`) from `VARCHAR()` to `INT` in order to join it with the `pizza_toppings` table
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/bcd17366-16e9-4228-a6a8-90fda6307503)
+
+- The most used ingredient as an extra is Bacon
+
+
+
 
 </details>
 
