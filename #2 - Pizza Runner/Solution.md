@@ -8,7 +8,7 @@ Here will show and explain everything I have done to solve the **Pizza Runner Ch
 ### :arrow_forward: Data Cleaning and Transformation.
 
 <details>
-<summary>Data Cleaning & Transformation</summary>
+<summary>Data Cleaning & Transformation</summary> <hr/>
 	
 After viewing each table, I noticed some data irregularity in the `customer_orders` and `runner_orders` tables.
 
@@ -20,7 +20,7 @@ ADD record_id INT IDENTITY(1,1)
 ```
 
 `customer_orders`
-
+ <hr/>
 **Before:**
 
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/f9799e70-bdef-40b4-b6f7-9ef33af96337)
@@ -53,7 +53,7 @@ in the temp table, leaving the existing table untouched for reference and going 
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/da5469a2-4f30-437b-829c-e03c6883dedc)
 
 
-
+ <hr/>
 `runner_orders`
 
 **Before:**
