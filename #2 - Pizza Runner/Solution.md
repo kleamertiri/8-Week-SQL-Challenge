@@ -20,7 +20,9 @@ ADD record_id INT IDENTITY(1,1)
 ```
 
 `customer_orders`
+
  <hr/>
+ 
 **Before:**
 
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/f9799e70-bdef-40b4-b6f7-9ef33af96337)
@@ -54,6 +56,7 @@ in the temp table, leaving the existing table untouched for reference and going 
 
 
  <hr/>
+ 
 `runner_orders`
 
 **Before:**
