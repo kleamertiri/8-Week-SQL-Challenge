@@ -616,6 +616,10 @@ ORDER BY toppings_nr_used DESC;
 
 - The most common ingredient that was excluded was the Cheese
 
+<hr/>
+
+
+
 
 </details>
 
