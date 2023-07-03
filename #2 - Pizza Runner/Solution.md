@@ -559,6 +559,7 @@ GROUP BY pizza_name;
 
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/5e97897b-9a54-413c-b998-3953494c3d94)
 
+<hr/>
 
 2- What was the most commonly added extra?
 
@@ -588,6 +589,7 @@ GROUP BY t.topping_id, t.topping_name;
 
 - The most used ingredient as an extra is Bacon
 
+<hr/>
 
 3- What was the most common exclusion?
 
