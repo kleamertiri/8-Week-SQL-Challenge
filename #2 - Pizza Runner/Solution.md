@@ -12,7 +12,7 @@ Here will show and explain everything I have done to solve the **Pizza Runner Ch
 	
 After viewing each table, I noticed some data irregularity in the `customer_orders` and `runner_orders` tables.
 
-Adding an Identity Column (to be able to uniquely identify every single pizza ordered)
+- Firstly, adding an Identity Column (to be able to uniquely identify every single pizza ordered)
 
 ```sql
 ALTER TABLE customer_orders
