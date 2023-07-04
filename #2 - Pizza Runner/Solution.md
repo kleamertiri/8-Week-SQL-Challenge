@@ -618,6 +618,58 @@ ORDER BY toppings_nr_used DESC;
 
 <hr/>
 
+4- Generate an order item for each record in the customers_orders table
+
+```sql
+--EXTRAS
+WITH CTE_extra_pizza AS (
+						SELECT record_id, e.pizza_id, pizza_name,
+							  'Extra ' + STRING_AGG(t.topping_name, ', ') as record_options
+						FROM #TEMP_pizza_extras AS e
+						INNER JOIN pizza_toppings AS t
+						ON e.extras = t.topping_id
+						INNER JOIN pizza_names AS p
+						ON p.pizza_id = e.pizza_id
+						GROUP BY record_id, e.pizza_id, pizza_name
+),
+--EXCLUSIONS
+CTE_pizza_exclude AS (
+						SELECT record_id, ex.pizza_id, pizza_name,
+							   'Exclude ' + STRING_AGG(t.topping_name, ', ') as record_options
+						FROM  #TEMP_pizza_exclusions AS ex
+						INNER JOIN pizza_toppings AS t
+						ON ex.exclusions = t.topping_id
+						INNER JOIN pizza_names AS p
+						ON p.pizza_id = ex.pizza_id
+						GROUP BY record_id, ex.pizza_id, pizza_name
+),
+
+CTE_union AS(
+						SELECT * FROM CTE_extra_pizza
+						UNION
+						SELECT * FROM CTE_pizza_exclude
+
+)
+
+SELECT record_id, CONCAT_WS(' - ', pizza_name, STRING_AGG(record_options, ' - ')) AS pizza_extra_or_exlusions
+FROM CTE_union
+GROUP BY record_id, pizza_name;
+```
+
+**EXTRAS:**
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/7028caff-f167-49b8-b98c-813ff10e1757)
+
+
+**EXCLUSIONS:**
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/c6a95e08-dd56-418b-8091-a62510883982)
+
+**Final Result:**
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/54f557f6-4793-4916-9190-ae2bbdd53ff0)
+
+<hr/>
 
 
 
