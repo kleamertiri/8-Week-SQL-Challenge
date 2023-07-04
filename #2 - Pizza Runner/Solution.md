@@ -614,7 +614,7 @@ ORDER BY toppings_nr_used DESC;
 
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/a0ab851d-c133-4695-8a2e-132f9debe78d)
 
-- The most common ingredient that was excluded was the Cheese
+- The most common ingredient that is excluded is the Cheese
 
 <hr/>
 
