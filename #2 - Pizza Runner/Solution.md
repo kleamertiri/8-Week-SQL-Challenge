@@ -677,10 +677,11 @@ GROUP BY record_id, pizza_name;
 WITH CTE_pizza_request_recipe AS(
 		SELECT record_id, pizza_name,
 			  CASE
-					WHEN r.toppings IN (
-										SELECT extras 
-										FROM #TEMP_pizza_extras AS e
-										WHERE c.record_id = e.record_id) -- getting the extra ingredients beside the fixed recipe
+			      WHEN r.toppings IN (
+						   -- getting the extra ingredients beside the fixed recipe
+						   SELECT extras 
+						   FROM #TEMP_pizza_extras AS e
+						   WHERE c.record_id = e.record_id) 
 					THEN '2x' + p.topping_name
 					ELSE p.topping_name
 			  END as topping
@@ -692,8 +693,8 @@ WITH CTE_pizza_request_recipe AS(
 		INNER JOIN pizza_toppings AS p
 		ON p.topping_id = r.toppings
 		WHERE r.toppings NOT IN (SELECT exclusions
-								 FROM #TEMP_pizza_exclusions AS ex
-								 WHERE c.record_id = ex.record_id) -- remove the exclusions
+					 FROM #TEMP_pizza_exclusions AS ex
+					 WHERE c.record_id = ex.record_id) 
 )
 
 SELECT record_id, CONCAT_WS(' - ', pizza_name, STRING_AGG(topping, ', ') WITHIN GROUP(ORDER BY topping)) AS client_pizza_request
