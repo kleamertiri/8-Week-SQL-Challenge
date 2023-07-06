@@ -746,7 +746,7 @@ ORDER BY count_toppings DESC;
 
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/316895b6-9abe-4d4b-8cab-fd0e45b8bde5)
 
-
+<hr/>
 
 
 </details>
