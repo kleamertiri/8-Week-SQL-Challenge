@@ -673,6 +673,38 @@ GROUP BY record_id, pizza_name;
 
 5- Generate an alphabetically ordered comma separated ingredient list for each pizza order from the customer_orders table and add a 2x in front of any relevant ingredients
 
+```sql
+WITH CTE_pizza_request_recipe AS(
+		SELECT record_id, pizza_name,
+			  CASE
+					WHEN r.toppings IN (
+										SELECT extras 
+										FROM #TEMP_pizza_extras AS e
+										WHERE c.record_id = e.record_id) -- getting the extra ingredients beside the fixed recipe
+					THEN '2x' + p.topping_name
+					ELSE p.topping_name
+			  END as topping
+		FROM #TEMP_customer_orders AS c
+		INNER JOIN pizza_names AS n
+		ON c.pizza_id = n.pizza_id
+		INNER JOIN #TEMP_pizza_recipes AS r
+		ON n.pizza_id = r.pizza_id
+		INNER JOIN pizza_toppings AS p
+		ON p.topping_id = r.toppings
+		WHERE r.toppings NOT IN (SELECT exclusions
+								 FROM #TEMP_pizza_exclusions AS ex
+								 WHERE c.record_id = ex.record_id) -- remove the exclusions
+)
+
+SELECT record_id, CONCAT_WS(' - ', pizza_name, STRING_AGG(topping, ', ') WITHIN GROUP(ORDER BY topping)) AS client_pizza_request
+FROM CTE_pizza_request_recipe
+GROUP BY record_id, pizza_name
+ORDER BY record_id;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/89281ef9-91b5-4e78-aa0c-df391205e429)
+
+
 <hr/>
 
 6- What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
