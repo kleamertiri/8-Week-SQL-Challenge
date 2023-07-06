@@ -710,6 +710,44 @@ ORDER BY record_id;
 
 6- What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
 
+```sql
+WITH CTE_total_ingredients_used AS(
+		SELECT record_id, pizza_name, p.topping_name,
+			  CASE
+			      WHEN r.toppings IN (-- getting the extra ingredients beside the fixed recipe
+					          SELECT extras 
+					          FROM #TEMP_pizza_extras AS e
+					          WHERE c.record_id = e.record_id) 
+			      THEN 2
+			      ELSE 1
+			  END as nr_topping_used
+		FROM #TEMP_customer_orders AS c
+		INNER JOIN pizza_names AS n
+		ON c.pizza_id = n.pizza_id
+		INNER JOIN #TEMP_pizza_recipes AS r
+		ON n.pizza_id = r.pizza_id
+		INNER JOIN pizza_toppings AS p
+		ON p.topping_id = r.toppings
+		INNER JOIN #TEMP_runners_orders AS r1
+		ON c.order_id = r1.order_id
+		WHERE r.toppings NOT IN ( -- remove the exclusions
+					 SELECT exclusions
+					 FROM #TEMP_pizza_exclusions AS ex
+					 WHERE c.record_id = ex.record_id) 
+		AND r1.cancellation = ''
+)
+
+SELECT topping_name, SUM(nr_topping_used) AS count_toppings
+FROM CTE_total_ingredients_used
+GROUP BY topping_name
+ORDER BY count_toppings DESC;
+```
+
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/316895b6-9abe-4d4b-8cab-fd0e45b8bde5)
+
+
+
 
 </details>
 
