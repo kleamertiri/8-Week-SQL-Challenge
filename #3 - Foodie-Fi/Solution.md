@@ -200,7 +200,8 @@ WITH CTE_cancel AS (
 
 SELECT 
 	SUM(CASE WHEN plan_name = 'churn' AND start_date = after_trial_date THEN 1 END) AS customer_canceled_after_trial,
-	ROUND(SUM(CASE WHEN plan_name = 'churn' AND start_date = after_trial_date THEN 1 END) * 100 / COUNT(DISTINCT s.customer_id), 1) AS churn_rate
+	ROUND(SUM(CASE WHEN plan_name = 'churn' AND start_date = after_trial_date THEN 1 END) * 100 /
+	COUNT(DISTINCT s.customer_id), 1) AS churn_rate
 FROM CTE_cancel AS c
 INNER JOIN subscriptions AS s
 ON c.customer_id = s.customer_id
@@ -211,6 +212,36 @@ ON s.plan_id = p.plan_id;
 ![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/af3657bd-4bd6-4e30-9dff-5fcfd8685ce3)
 
 - 92 customers canceled immediately after the trial run, about 9%
+
+<hr/>
+
+6- What is the number and percentage of customer plans after their initial free trial?
+
+```sql
+WITH CTE_rank_plans AS (
+SELECT *, 
+	  RANK() OVER(PARTITION BY customer_id ORDER BY start_date) AS rank_plan
+FROM subscriptions
+)
+
+SELECT  plan_name, 
+	    COUNT(customer_id) AS customer_per_plan, 
+		ROUND(COUNT(customer_id) * CAST(CAST(100.0 AS DECIMAL(5,2)) AS FLOAT) /
+		(SELECT COUNT(DISTINCT customer_id) FROM subscriptions), 1) AS percentage_plan
+FROM CTE_rank_plans AS c
+INNER JOIN plans AS p
+ON c.plan_id = p.plan_id
+WHERE rank_plan = 2 
+GROUP BY plan_name
+ORDER BY customer_per_plan DESC;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/26efd592-2185-4a66-a17d-00260a633e7b)
+
+- The most purchased plan is `Basic monthly`, around 54,6% of customers. The last purchased plan is `Pro annual`, about 3.7%
+
+<hr/>
+
 
 
 </details>
