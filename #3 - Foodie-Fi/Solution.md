@@ -12,6 +12,7 @@ Here will show and explain everything I have done to solve the **Foodie-Fi Chall
 <hr/>
 Based off the 8 sample customers provided in the sample from the subscriptions table, write a brief description about each customer’s onboarding journey.
 
+
 ```sql
 WITH CTE_customer_description AS (
 		SELECT customer_id, plan_name, start_date, price
