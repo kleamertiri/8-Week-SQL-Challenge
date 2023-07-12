@@ -162,4 +162,55 @@ ORDER BY count_plans;
 - In 2021, there are not new customers since there is not any `Trial` plan. There is an increase in subscribers for the `Pro monthly` and
   `Pro annual` plan. Also, there is a huge loss of subscribers, since 71 have ended their subscription.
 
+<hr/>
+
+4- What is the customer count and percentage of customers who have churned rounded to 1 decimal place?
+
+```sql
+WITH CTE_churn_percentage AS (
+	SELECT
+		SUM(CASE WHEN p.plan_name = 'churn' THEN 1 END) AS churn_clients,
+		COUNT(DISTINCT customer_id) AS total_number
+	FROM subscriptions AS s
+	INNER JOIN plans AS p
+	ON s.plan_id = p.plan_id
+)
+
+SELECT churn_clients, ROUND(churn_clients * 100.0 / total_number, 1) AS churn_percentage
+FROM CTE_churn_percentage;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/96bbd7ab-178a-45b3-924c-156dc7ffdcf1)
+
+- There are 307 clients who have removed their subscription, around 30.7%
+
+<hr/>
+
+5- How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
+
+```sql
+WITH CTE_cancel AS (
+		SELECT customer_id, 
+			   DATEADD(day, 7, start_date) AS after_trial_date
+		FROM subscriptions AS s
+		INNER JOIN plans AS p
+		ON s.plan_id = p.plan_id
+		WHERE plan_name = 'trial'
+)
+
+SELECT 
+	SUM(CASE WHEN plan_name = 'churn' AND start_date = after_trial_date THEN 1 END) AS customer_canceled_after_trial,
+	ROUND(SUM(CASE WHEN plan_name = 'churn' AND start_date = after_trial_date THEN 1 END) * 100 / COUNT(DISTINCT s.customer_id), 1) AS churn_rate
+FROM CTE_cancel AS c
+INNER JOIN subscriptions AS s
+ON c.customer_id = s.customer_id
+INNER JOIN plans AS p
+ON s.plan_id = p.plan_id;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/af3657bd-4bd6-4e30-9dff-5fcfd8685ce3)
+
+- 92 customers canceled immediately after the trial run, about 9%
+
+
 </details>
