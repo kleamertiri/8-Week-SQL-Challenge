@@ -1,7 +1,7 @@
 # :oil_drum: 8 Week SQL Challenge
 In this repository I will display the solutions for 8 use cases in [8 Week SQL Challenge](https://8weeksqlchallenge.com/) from @DataWithDanny
 
-## :arrow_forward: List of Challenges
+## :arrow_forward: List of Challenges 
 - [Case Study #1 - Danny's Diner](#case-study-1---dannys-diner)
 - [Case Study #2 - Pizza Runner](#case-study-2---pizza-runner)
 - Case Study #3 - Foodie-Fi
@@ -12,6 +12,7 @@ Danny wants to use the data to answer a few simple questions about his customers
 - About their visiting patterns
 - How much money they’ve spent?
 - Which menu items are their favourite?
+
 ### Entity Relationship Diagram
 ![image](https://user-images.githubusercontent.com/105167291/230072841-434767eb-10ad-439d-a9b0-7f9cdae5fefb.png)
 ### Case Study Questions
@@ -46,7 +47,7 @@ Danny was sold on the idea, but he knew that pizza alone was not going to help h
 ### Entity Relationship Diagram
 ![Capture](https://user-images.githubusercontent.com/105167291/230781641-e3f42a47-d8de-4e6d-a642-83eddc64882f.PNG)
 
-### Case Study Questions
+### Case Study Questions 
 This case study has **LOTS** of questions - they are broken up by area of focus including:
 
 <details>
@@ -93,8 +94,45 @@ This case study has **LOTS** of questions - they are broken up by area of focus 
 6.  What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
 </details>
 
+## Case Study #3 - Foodie-Fi
 
+![3](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/fdd7d8aa-a663-4e6d-9b0b-6409998084f1)
 
+### Introduction
 
+Subscription based businesses are super popular and Danny realised that there was a large gap in the market - he wanted to create a new streaming service that only had food related content - something like Netflix but with only cooking shows!
 
+Danny finds a few smart friends to launch his new startup Foodie-Fi in 2020 and started selling monthly and annual subscriptions, giving their customers unlimited on-demand access to exclusive food videos from around the world!
 
+Danny created Foodie-Fi with a data driven mindset and wanted to ensure all future investment decisions and new features were decided using data. This case study focuses on using subscription style digital data to answer important business questions.
+
+### Entity Relationship Diagram
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/b96ccbeb-49b1-4347-8775-988d220cb08e)
+
+### Case Study Questions
+
+This case study is split into an initial data understanding question before diving straight into data analysis questions before finishing with 1 single extension challenge.
+
+<details>
+  <summary>A. Customer Journey</summary>
+  Based off the 8 sample customers provided in the sample from the subscriptions table, write a brief description about each customer’s onboarding journey.
+  Try to keep it as short as possible - you may also want to run some sort of join to make your explanations a bit easier!
+</details>
+
+<details>
+  <summary>B. Data Analysis Questions</summary>
+  
+  1. How many customers has Foodie-Fi ever had?
+  2. What is the monthly distribution of trial plan start_date values for our dataset - use the start of the month as the group by value
+  3. What plan start_date values occur after the year 2020 for our dataset? Show the breakdown by count of events for each plan_name
+  4. What is the customer count and percentage of customers who have churned rounded to 1 decimal place?
+  5. How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
+  6. What is the number and percentage of customer plans after their initial free trial?
+  7. What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
+  8. How many customers have upgraded to an annual plan in 2020?
+  9. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
+  10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
+  11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
+  
+</details>
