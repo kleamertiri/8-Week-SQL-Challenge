@@ -100,3 +100,66 @@ upgraded to the pro annual plan which costs $199.00
 *Customer #19* strated the free trial on 22-06-2020. Firstly, upgraded to the pro monthly plan which costs $19.90 on 29-06-2020, and after that
 upgraded to the pro annual plan which costs $199.00 on 29-08-2020
 </details>
+
+<details>
+<summary>B. Data Analysis Questions</summary>
+
+1- How many customers has Foodie-Fi ever had?
+```sql
+SELECT COUNT(DISTINCT customer_id) AS total_customers
+FROM subscriptions AS s
+INNER JOIN plans AS p
+ON s.plan_id = p.plan_id
+WHERE plan_name != 'churn';
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/f00b070c-7924-45a8-9e2c-b40b1862950e)
+
+
+- There is a total of 1000 customers who has tried and purchased Foodie-Fi
+
+<hr/>
+
+2- What is the monthly distribution of trial plan start_date values for our dataset - use the start of the month as the group by value
+
+```sql
+SELECT 
+	MONTH(s.start_date) AS month_nr, 
+	DATENAME(MONTH, start_date) AS month, 
+	COUNT(p.plan_name) AS trial_total
+FROM subscriptions AS s
+INNER JOIN plans AS p
+ON s.plan_id = p.plan_id
+WHERE p.plan_name = 'trial'
+GROUP BY MONTH(s.start_date), DATENAME(MONTH, start_date)
+ORDER BY trial_total;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/ee9e8097-99c0-4c34-bde2-c10f7e71056d)
+
+
+- In **_March_**, there has been the largest number of people who signed up for the trial run, while in **_February_** it has been the lowest.
+
+<hr/>
+
+3- What plan start_date values occur after the year 2020 for our dataset? Show the breakdown by count of events for each plan_name
+
+```sql
+SELECT 
+	YEAR(s.start_date) AS year, 
+	CONCAT(UPPER(LEFT(p.plan_name, 1)), LOWER(RIGHT(p.plan_name, LEN(p.plan_name) - 1))) AS plan_name , 
+	COUNT(customer_id) AS count_plans
+FROM subscriptions AS s
+INNER JOIN plans AS p
+ON s.plan_id = p.plan_id
+WHERE YEAR(s.start_date) > 2020
+GROUP BY p.plan_name, YEAR(s.start_date)
+ORDER BY count_plans;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/0a655399-2573-4d57-acb1-c66998a5ba3e)
+
+- In 2021, there are not new customers since there is not any `Trial` plan. There is an increase in subscribers for the `Pro monthly` and
+  `Pro annual` plan. Also, there is a huge loss of subscribers, since 71 have ended their subscription.
+
+</details>
