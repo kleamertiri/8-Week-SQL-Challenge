@@ -2,7 +2,7 @@
 
 ## Solution
 
-### 1. What is the total amount each customer spent at the restaurant?
+## 1. What is the total amount each customer spent at the restaurant?
 ```sql
 SELECT S.customer_id, SUM(M.price) AS total_price
 FROM sales AS S
