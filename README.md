@@ -7,7 +7,7 @@ In this repository I will display the solutions for 8 use cases in [8 Week SQL C
 - [Case Study #3 - Foodie-Fi](#case-study-3---foodie-fi)
 ## Case Study #1 - Danny's Diner
 
-- [SQL Syntax & Solutions](https://github.com/kleamertiri/8-Week-SQL-Challenge/tree/main/%231%20-%20Danny's%20Diner)
+:zap: [SQL Syntax & Solutions](https://github.com/kleamertiri/8-Week-SQL-Challenge/tree/main/%231%20-%20Danny's%20Diner)
 
   
 ![Capture](https://user-images.githubusercontent.com/105167291/230071791-2aef7e3b-095e-4a11-a628-ad1188a868ad.PNG)
@@ -41,7 +41,7 @@ Danny wants to use the data to answer a few simple questions about his customers
 </details>
 
 ## Case Study #2 - Pizza Runner
-- [SQL Synatx & Solutions](https://github.com/kleamertiri/8-Week-SQL-Challenge/tree/main/%232%20-%20Pizza%20Runner)
+:zap: [SQL Syntax & Solutions](https://github.com/kleamertiri/8-Week-SQL-Challenge/tree/main/%232%20-%20Pizza%20Runner)
 
 ![2](https://user-images.githubusercontent.com/105167291/230781392-def52ec2-35b5-482d-b4bd-1cbd745e6fbc.png)
 
@@ -102,7 +102,7 @@ This case study has **LOTS** of questions - they are broken up by area of focus 
 
 ## Case Study #3 - Foodie-Fi
 
-- [SQL Synatx & Solutions](https://github.com/kleamertiri/8-Week-SQL-Challenge/tree/main/%233%20-%20Foodie-Fi)
+:zap: [SQL Syntax & Solutions](https://github.com/kleamertiri/8-Week-SQL-Challenge/tree/main/%233%20-%20Foodie-Fi)
 
 ![3](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/fdd7d8aa-a663-4e6d-9b0b-6409998084f1)
 
