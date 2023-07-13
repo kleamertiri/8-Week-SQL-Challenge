@@ -6,6 +6,12 @@ In this repository I will display the solutions for 8 use cases in [8 Week SQL C
 - [Case Study #2 - Pizza Runner](#case-study-2---pizza-runner)
 - [Case Study #3 - Foodie-Fi](#case-study-3---foodie-fi)
 ## Case Study #1 - Danny's Diner
+- [Problem Statement](#problem-statement)
+- [Entity Relationship Diagram](#entity-relationship-diagram)
+- [Case Study Questions](#case-study-questions)
+- [Solution](https://github.com/kleamertiri/8-Week-SQL-Challenge/tree/main/%231%20-%20Danny's%20Diner)
+
+  
 ![Capture](https://user-images.githubusercontent.com/105167291/230071791-2aef7e3b-095e-4a11-a628-ad1188a868ad.PNG)
 ### Problem Statement
 Danny wants to use the data to answer a few simple questions about his customers:
