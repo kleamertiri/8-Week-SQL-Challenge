@@ -26,6 +26,8 @@ ORDER BY S.customer_id;
 - Customer B spent in total $74
 - Customer C spent in total $36
 
+<hr/>
+
 ### 2. How many days has each customer visited the restaurant?
 ```sql
 SELECT customer_id, COUNT(DISTINCT order_date) AS nr_visits
@@ -47,6 +49,8 @@ ORDER BY customer_id;
 - Customer A visited the restaurant 4 days
 - Customer B visited the restaurant 6 days
 - Customer C visited the restaurant 2 days
+
+<hr/>
 
 ### 3. What was the first item from the menu purchased by each customer?
 ```sql
@@ -81,6 +85,8 @@ GROUP BY customer_id, product_name;
 - Customer B's first choice is curry
 - Customer C's first choice is ramen
 
+<hr/>
+
 ### 4. What is the most purchased item on the menu and how many times was it purchased by all customers?
 
 ```sql
@@ -99,6 +105,8 @@ ORDER BY number_of_purchased DESC;
 | product_name | number_of_purchased |
 | ------------ | ------------------- |
 |     ramen    |          8          |
+
+<hr/>
 
 ### 5. Which item was the most popular for each customer?
 
@@ -129,6 +137,7 @@ WHERE rn = 1;
 |     B       |    sushi     |       3        |
 |     C       |    ramen     |       3        |
 
+<hr/>
 
 ### 6. Which item was purchased first by the customer after they became member?
 
@@ -159,6 +168,8 @@ partitioned by the `customer_id` and ordered by `order_date`
 |      A      |    ramen     |
 |      B      |    sushi     |
 
+<hr/>
+
 ### 7. Which item was purchased just before the customer became a member?
 
 ```sql
@@ -183,6 +194,8 @@ WHERE ranking = 1
 | ----------- | ------------ |
 |      A      |    sushi     |
 |      B      |    sushi     |
+
+<hr/>
 
 ### 8. What is the total items and amound spent for each member before they became a member?
 
@@ -209,6 +222,7 @@ GROUP BY S.customer_id;
 |      A      |     2        |      25      |
 |      B      |     3        |      40      |
 
+<hr/>
 
 ### 9. If each $1 spent equates to 10 points and sushi has sx points multiplier - how many points would each customer have?
 
@@ -239,6 +253,8 @@ WITH CTE_points AS (
 |      A      |    860           |
 |      B      |    940           |
 |      C      |    360           |
+
+<hr/>
 
 ### 10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
 
