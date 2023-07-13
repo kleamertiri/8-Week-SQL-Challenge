@@ -7,8 +7,6 @@ In this repository I will display the solutions for 8 use cases in [8 Week SQL C
 - [Case Study #3 - Foodie-Fi](#case-study-3---foodie-fi)
 ## Case Study #1 - Danny's Diner
 - [Problem Statement](#problem-statement)
-- [Entity Relationship Diagram](#entity-relationship-diagram)
-- [Case Study Questions](#case-study-questions)
 - [SQL Syntax & Solutions](https://github.com/kleamertiri/8-Week-SQL-Challenge/tree/main/%231%20-%20Danny's%20Diner)
 
   
