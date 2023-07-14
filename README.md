@@ -43,7 +43,7 @@ Danny wants to use the data to answer a few simple questions about his customers
 ## Case Study #2 - Pizza Runner
 :zap: [SQL Syntax & Solutions](https://github.com/kleamertiri/8-Week-SQL-Challenge/tree/main/%232%20-%20Pizza%20Runner)
 
-![2](https://user-images.githubusercontent.com/105167291/230781392-def52ec2-35b5-482d-b4bd-1cbd745e6fbc.png)
+[![2](https://user-images.githubusercontent.com/105167291/230781392-def52ec2-35b5-482d-b4bd-1cbd745e6fbc.png)](https://8weeksqlchallenge.com/case-study-2/)
 
 ### Introduction
 Danny was scrolling through his Instagram feed when something really caught his eye - “80s Retro Styling and Pizza Is The Future!”
@@ -104,7 +104,7 @@ This case study has **LOTS** of questions - they are broken up by area of focus 
 
 :zap: [SQL Syntax & Solutions](https://github.com/kleamertiri/8-Week-SQL-Challenge/tree/main/%233%20-%20Foodie-Fi)
 
-![3](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/fdd7d8aa-a663-4e6d-9b0b-6409998084f1)
+[![3](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/fdd7d8aa-a663-4e6d-9b0b-6409998084f1)](https://8weeksqlchallenge.com/case-study-3/)
 
 ### Introduction
 
