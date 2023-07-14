@@ -10,7 +10,7 @@ In this repository I will display the solutions for 8 use cases in [8 Week SQL C
 :zap: [SQL Syntax & Solutions](https://github.com/kleamertiri/8-Week-SQL-Challenge/tree/main/%231%20-%20Danny's%20Diner)
 
   
-![Capture](https://user-images.githubusercontent.com/105167291/230071791-2aef7e3b-095e-4a11-a628-ad1188a868ad.PNG)
+[![Capture](https://user-images.githubusercontent.com/105167291/230071791-2aef7e3b-095e-4a11-a628-ad1188a868ad.PNG)](https://8weeksqlchallenge.com/case-study-1/)
 ### Problem Statement
 Danny wants to use the data to answer a few simple questions about his customers:
 - About their visiting patterns
