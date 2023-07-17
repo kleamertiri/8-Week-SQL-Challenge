@@ -242,6 +242,131 @@ ORDER BY customer_per_plan DESC;
 
 <hr/>
 
+7- What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
+
+```sql
+WITH CTE_latest_date AS (
+		SELECT *, RANK() OVER(PARTITION BY customer_id ORDER BY start_date DESC) AS rank
+		FROM subscriptions
+		WHERE start_date <= '2020-12-31'
+)
+
+SELECT p.plan_name,
+	   COUNT(DISTINCT c.customer_id) AS customer_count,
+	   ROUND(COUNT(customer_id) * CAST(100.0 AS FLOAT) / 
+		(SELECT COUNT(DISTINCT customer_id) FROM subscriptions), 1) AS percentage_plan
+FROM CTE_latest_date AS c
+INNER JOIN plans AS p
+ON c.plan_id = p.plan_id
+WHERE rank = 1
+GROUP BY p.plan_name
+ORDER BY customer_count DESC;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/50b24396-6f3e-478b-9902-801ac2940f7c)
+
+<hr/>
+
+8- How many customers have upgraded to an annual plan in 2020?
+
+```sql
+SELECT COUNT(DISTINCT s.customer_id) AS total_customers
+FROM subscriptions AS s
+INNER JOIN plans AS p
+ON s.plan_id = p.plan_id
+WHERE YEAR(s.start_date) = '2020' AND p.plan_name = 'pro annual';
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/002f14bb-4678-413a-b9c1-8d9caefca158)
+
+- There are 195 customers who upgraded to an annual plan in 2020
+
+<hr/>
+
+9- How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
+
+```sql
+WITH CTE_rank AS (
+	SELECT customer_id, s.plan_id, p.plan_name, s.start_date,
+		  RANK() OVER(PARTITION BY customer_id ORDER BY start_date) AS rank
+	FROM subscriptions AS s
+	INNER JOIN plans AS p
+	ON s.plan_id = p.plan_id 
+	WHERE plan_name IN ('trial', 'pro annual')
+)
+
+SELECT  
+		AVG(DATEDIFF(day, c1.start_date, c2.start_date)) AS avg_difference_days
+FROM CTE_rank AS c1
+INNER JOIN CTE_rank AS c2
+ON c1.customer_id = c2.customer_id
+WHERE c1.rank = 1 and c2.rank = 2;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/f7a6f38c-cbb6-46ed-8647-2960cf2bb57d)
+
+- A customer takes averagely 104 days to upgrade to an annual plan
+
+<hr/>
+
+10- Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
+
+```sql
+WITH CTE_trial AS (
+			  SELECT customer_id, 
+				     start_date AS trial_date
+			  FROM subscriptions
+			  WHERE plan_id = 0
+
+), CTE_annual AS (
+			  SELECT customer_id, 
+				     start_date AS annual_date
+			  FROM subscriptions
+			  WHERE plan_id = 3
+
+), CTE_day_difference AS (
+			SELECT DATEDIFF(day, t.trial_date, a.annual_date) AS diff_day
+			FROM CTE_annual AS a
+			LEFT JOIN CTE_trial AS t
+			ON t.customer_id = a.customer_id
+
+), CTE_group_day AS (
+
+			SELECT *, FLOOR(diff_day/ 30) AS group_day
+			FROM CTE_day_difference
+)
+
+SELECT CONCAT((group_day * 30) + 1, '-', (group_day + 1) * 30, ' days') AS days,
+	   COUNT(group_day) AS number_days
+FROM CTE_group_day
+GROUP BY group_day;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/39052f6b-1990-40d6-b64f-466862d1cd54)
+
+<hr/>
+
+11- How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
+
+```sql
+WITH CTE_downgrade AS (
+	SELECT customer_id, s.plan_id, p.plan_name, s.start_date,
+			RANK() OVER(PARTITION BY customer_id ORDER BY start_date) AS rank
+	FROM subscriptions AS s
+	INNER JOIN plans AS p
+	ON s.plan_id = p.plan_id 
+	WHERE plan_name IN ('basic monthly', 'pro monthly') AND YEAR(start_date) = '2020'
+)
+
+SELECT COUNT(customer_id) AS total_customers
+FROM CTE_downgrade
+WHERE  rank = 1 AND rank = 2;
+```
+
+![image](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/52071e4c-9789-4543-b95a-8da47ad6964e)
+
+- There are no clients who downgraded in 2020
+
 
 
 </details>
