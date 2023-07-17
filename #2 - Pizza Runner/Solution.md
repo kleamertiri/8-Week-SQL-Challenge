@@ -21,7 +21,7 @@ ADD record_id INT IDENTITY(1,1)
 
 `customer_orders`
 
- <hr/>
+
  
 **Before:**
 
