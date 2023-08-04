@@ -104,7 +104,7 @@ This case study has **LOTS** of questions - they are broken up by area of focus 
 
 :zap: [SQL Syntax & Solutions](https://github.com/kleamertiri/8-Week-SQL-Challenge/tree/main/%233%20-%20Foodie-Fi)
 
-[![3](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/fdd7d8aa-a663-4e6d-9b0b-6409998084f1)](<a href="[website-link-goes-here](https://8weeksqlchallenge.com/case-study-3/)" target="_blank">)
+[![3](https://github.com/kleamertiri/8-Week-SQL-Challenge/assets/105167291/fdd7d8aa-a663-4e6d-9b0b-6409998084f1)](<a href="https://8weeksqlchallenge.com/case-study-3/" target="_blank">)
 
 ### Introduction
 
