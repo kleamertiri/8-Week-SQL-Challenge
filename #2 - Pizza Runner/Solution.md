@@ -142,6 +142,7 @@ Using the aggregate function `COUNT()` to find the total number of pizzas ordere
 - The total number of pizzas ordered is 14
 <hr/>
 2- How many unique customer orders were made?
+
 ```sql
 SELECT COUNT(DISTINCT order_id) AS unique_customers_orders
 FROM customer_orders;
@@ -294,6 +295,7 @@ GROUP BY c.customer_id
 - Customer 104 got 1 pizza with the standart recipe and 2 pizzas with changes
 <hr/>
 8- How many pizzas were delivered that had both exclusions and extras?
+
 ```sql
 SELECT c.order_id, COUNT(pizza_id) AS pizza_with_changes
 FROM #TEMP_customer_orders AS c
